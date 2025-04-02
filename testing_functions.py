@@ -18,6 +18,8 @@ def generate_random_int_set(n, max_value=None):
     if n > max_value:
         raise ValueError("Cannot generate more unique numbers than the range allows.")
 
+    return set(random.sample(range(max_value), n))
+
 def silent_test(func, *args, **kwargs):
     """
     Run a function while suppressing its print output.
