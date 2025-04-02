@@ -15,7 +15,8 @@ def is_reflexive(relation):
     universe = {x for pair in relation for x in pair}
     for x in universe:
         if (x, x) not in relation:
-            return print('Not reflexive, missing pair:', (x, x))
+            print('Not reflexive, missing pair:', (x, x))
+            return False
     return True
 
 
@@ -33,7 +34,8 @@ def is_transitive(relation):
     for (a, b) in relation:
         for (c, d) in relation:
             if b == c and (a, d) not in relation:
-                return print('Not transitive:', ((a, b), (b, d)),'are there, but the following is not:', ((a, d)))
+                print('Not transitive:', ((a, b), (b, d)),'are there, but the following is not:', ((a, d)))
+                return False
     return True
 
 def is_symmetric(relation):
@@ -46,7 +48,8 @@ def is_symmetric(relation):
     """
     for (a, b) in relation:
         if (b, a) not in relation:
-            return print('Not symmetric', (a, b), f'Missing {(b, a)}')
+            print('Not symmetric', (a, b), f'Missing {(b, a)}')
+            return False
     return True
 
 def is_antisymmetric(relation):
@@ -59,7 +62,8 @@ def is_antisymmetric(relation):
     """
     for (a, b) in relation:
         if (b, a) in relation and a != b:
-            return print('Not antisymmetric', ((a, b), (b, a)))
+            print('Not antisymmetric', ((a, b), (b, a)))
+            return False
     return True
 
 def is_acyclic(relation):
@@ -68,13 +72,19 @@ def is_acyclic(relation):
 
     Returns:
     - True if the relation is acyclic.
-    - Otherwise, returns ('Not acyclic', cycle_path).
+    - Otherwise, prints the cycle and returns False.
     """
     from collections import defaultdict
 
+    # Build full graph with all nodes initialized
     graph = defaultdict(list)
+    nodes = set()
     for a, b in relation:
         graph[a].append(b)
+        nodes.update([a, b])  # ensure all nodes (including leaves) are known
+
+    for node in nodes:
+        graph[node]  # ensure all nodes appear in the graph
 
     visited = set()
     stack = []
@@ -90,16 +100,17 @@ def is_acyclic(relation):
                     return result
             elif neighbor in path:
                 cycle_start = path.index(neighbor)
-                return path[cycle_start:] + [neighbor]  # return full cycle
+                return path[cycle_start:] + [neighbor]
 
         path.pop()
         return None
 
-    for node in graph:
+    for node in list(graph):  # safe to iterate now
         if node not in visited:
             cycle = dfs(node, [])
             if cycle:
-                return print('Not acyclic, cycle is:', cycle)
+                print('Not acyclic, cycle is:', cycle)
+                return False
 
     return True
 
