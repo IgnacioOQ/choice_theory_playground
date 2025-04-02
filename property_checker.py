@@ -1,3 +1,4 @@
+from imports import *
 from basic_functions import *
 
 def test_alpha(choice, S):
