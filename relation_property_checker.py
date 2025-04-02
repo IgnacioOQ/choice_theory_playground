@@ -15,7 +15,7 @@ def is_reflexive(relation):
     universe = {x for pair in relation for x in pair}
     for x in universe:
         if (x, x) not in relation:
-            return ('Not reflexive, missing pair:', (x, x))
+            return print('Not reflexive, missing pair:', (x, x))
     return True
 
 
@@ -33,7 +33,7 @@ def is_transitive(relation):
     for (a, b) in relation:
         for (c, d) in relation:
             if b == c and (a, d) not in relation:
-                return ('Not transitive:', ((a, b), (b, d)),'are there, but the following is not:', ((a, d)))
+                return print('Not transitive:', ((a, b), (b, d)),'are there, but the following is not:', ((a, d)))
     return True
 
 def is_symmetric(relation):
@@ -46,7 +46,7 @@ def is_symmetric(relation):
     """
     for (a, b) in relation:
         if (b, a) not in relation:
-            return ('Not symmetric', (a, b), f'Missing {(b, a)}')
+            return print('Not symmetric', (a, b), f'Missing {(b, a)}')
     return True
 
 def is_antisymmetric(relation):
@@ -59,7 +59,7 @@ def is_antisymmetric(relation):
     """
     for (a, b) in relation:
         if (b, a) in relation and a != b:
-            return ('Not antisymmetric', ((a, b), (b, a)))
+            return print('Not antisymmetric', ((a, b), (b, a)))
     return True
 
 def is_acyclic(relation):
@@ -99,7 +99,7 @@ def is_acyclic(relation):
         if node not in visited:
             cycle = dfs(node, [])
             if cycle:
-                return ('Not acyclic, cycle is:', cycle)
+                return print('Not acyclic, cycle is:', cycle)
 
     return True
 
