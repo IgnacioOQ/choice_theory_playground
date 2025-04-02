@@ -31,10 +31,11 @@ def find_all_subsets_without_empty(input_set):
     return [set(subset) for subset in subsets if subset]  # if subset Exclude the empty set
 
 def generate_random_choice_function(input_set):
-  all_subsets = find_all_subsets_without_empty(input_set)
-  for subset in all_subsets:
-    all_subsubsets = find_all_subsets_without_empty(subset)
-    choice_function[frozenset(subset)] = random.choice(all_subsubsets)
-  return choice_function
+    choice_function = {}
+    all_subsets = find_all_subsets_without_empty(input_set)
+    for subset in all_subsets:
+        all_subsubsets = find_all_subsets_without_empty(subset)
+        choice_function[frozenset(subset)] = random.choice(all_subsubsets)
+    return choice_function
 
 
