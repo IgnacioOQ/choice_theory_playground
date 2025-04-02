@@ -38,4 +38,20 @@ def generate_random_choice_function(input_set):
         choice_function[frozenset(subset)] = random.choice(all_subsubsets)
     return choice_function
 
+def find_all_orderings(S):
+    # Generate all ordered pairs (Cartesian product of S with itself)
+    ordered_pairs = list(itertools.product(S, repeat=2))
 
+    # Generate all subsets of the ordered pairs
+    subsets = [set(subset) for r in range(len(ordered_pairs) + 1)
+                         for subset in itertools.combinations(ordered_pairs, r)]
+
+    print("Total subsets:", len(subsets))
+    return subsets
+
+def find_maximal_elements(relation):
+    # Extract all elements from the relation
+    elements = {x for pair in relation for x in pair}
+
+    # A maximal element is one that is not strictly less than any other
+    return {x for x in elements if all((x, y) not in relation or x == y for y in elements)}
