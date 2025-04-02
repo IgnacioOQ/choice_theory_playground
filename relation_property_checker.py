@@ -9,10 +9,14 @@ def is_reflexive(relation):
     - relation (set of tuples): Binary relation as a set of ordered pairs.
 
     Returns:
-    - bool: True if the relation is reflexive, False otherwise.
+    - True if the relation is reflexive.
+    - Otherwise, returns a tuple ('Not reflexive', missing_pair).
     """
     universe = {x for pair in relation for x in pair}
-    return all((x, x) in relation for x in universe)
+    for x in universe:
+        if (x, x) not in relation:
+            return ('Not reflexive', (x, x))
+    return True
 
 
 def is_transitive(relation):
@@ -23,77 +27,79 @@ def is_transitive(relation):
     - relation (set of tuples): The binary relation as a set of ordered pairs.
 
     Returns:
-    - bool: True if the relation is transitive, False otherwise.
+    - True if the relation is transitive.
+    - Otherwise, returns a tuple ('Not transitive', ((a, b), (b, c), (a, c))).
     """
     for (a, b) in relation:
         for (c, d) in relation:
             if b == c and (a, d) not in relation:
-                return False
+                return ('Not transitive', ((a, b), (b, d), (a, d)))
     return True
 
 def is_symmetric(relation):
     """
     Check if a binary relation is symmetric.
 
-    Parameters:
-    - relation (set of tuples): The binary relation as a set of ordered pairs.
-
     Returns:
-    - bool: True if the relation is symmetric, False otherwise.
+    - True if the relation is symmetric.
+    - Otherwise, returns ('Not symmetric', (a, b), expected (b, a)).
     """
-    return all((b, a) in relation for (a, b) in relation)
+    for (a, b) in relation:
+        if (b, a) not in relation:
+            return ('Not symmetric', (a, b), f'Missing {(b, a)}')
+    return True
 
 def is_antisymmetric(relation):
     """
     Check if a binary relation is antisymmetric.
 
-    Parameters:
-    - relation (set of tuples): The binary relation as a set of ordered pairs.
-
     Returns:
-    - bool: True if the relation is antisymmetric, False otherwise.
+    - True if the relation is antisymmetric.
+    - Otherwise, returns ('Not antisymmetric', ((a, b), (b, a))).
     """
-    return all(a == b or (b, a) not in relation for (a, b) in relation)
-
+    for (a, b) in relation:
+        if (b, a) in relation and a != b:
+            return ('Not antisymmetric', ((a, b), (b, a)))
+    return True
 
 def is_acyclic(relation):
     """
     Check if a binary relation is acyclic.
 
-    Parameters:
-    - relation (set of tuples): The binary relation as a set of ordered pairs.
-
     Returns:
-    - bool: True if the relation is acyclic, False otherwise.
+    - True if the relation is acyclic.
+    - Otherwise, returns ('Not acyclic', cycle_path).
     """
     from collections import defaultdict
 
-    # Build adjacency list
     graph = defaultdict(list)
     for a, b in relation:
         graph[a].append(b)
 
     visited = set()
-    stack = set()
+    stack = []
 
-    def dfs(node):
+    def dfs(node, path):
         visited.add(node)
-        stack.add(node)
+        path.append(node)
 
         for neighbor in graph[node]:
             if neighbor not in visited:
-                if dfs(neighbor):
-                    return True
-            elif neighbor in stack:
-                return True
+                result = dfs(neighbor, path)
+                if result:
+                    return result
+            elif neighbor in path:
+                cycle_start = path.index(neighbor)
+                return path[cycle_start:] + [neighbor]  # return full cycle
 
-        stack.remove(node)
-        return False
+        path.pop()
+        return None
 
-    # Run DFS from all unvisited nodes
     for node in graph:
         if node not in visited:
-            if dfs(node):
-                return False  # Cycle found
+            cycle = dfs(node, [])
+            if cycle:
+                return ('Not acyclic', cycle)
 
     return True
+
