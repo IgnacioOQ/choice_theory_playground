@@ -1,3 +1,5 @@
+from basic_functions import *
+
 def test_alpha(choice, S):
     all_subsets = find_all_subsets_without_empty(S)
     all_fsets = [frozenset(subset) for subset in all_subsets]
