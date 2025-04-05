@@ -57,19 +57,25 @@ def topological_sort(graph: Dict[int, Set[int]]) -> List[int]:
 
 
 def build_choice_function_from_relation(
-    relation: Set[Tuple[int, int]],
-    universe: Set[int]
+    relation: Set[Tuple[int, int]]
 ) -> Dict[FrozenSet[int], Set[int]]:
     """
     Given a binary relation (a >= b), builds a choice function C(A)
     such that C(A) = { a in A | a >= b for all b in A }.
-    The choice function is defined for all nonempty subsets of the universe.
+    Automatically infers the universe from the relation.
     """
-    # Build relation lookup: for each a, the set of b such that a >= b
+    # Extract universe from the relation
+    universe = set()
+    for a, b in relation:
+        universe.add(a)
+        universe.add(b)
+
+    # Build lookup: for each a, the set of b such that a >= b
     geq = {a: set() for a in universe}
     for a, b in relation:
         geq[a].add(b)
 
+    # Compute choice function over all nonempty subsets
     choice_function = {}
     for r in range(1, len(universe) + 1):
         for subset in itertools.combinations(universe, r):
