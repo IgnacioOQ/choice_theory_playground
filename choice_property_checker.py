@@ -1,7 +1,7 @@
 from imports import *
 from basic_functions import *
 
-def test_alpha(choice, S):
+def test_alpha(choice):
     # Extract universe from the choice function
     universe = set()
     for a in choice:
