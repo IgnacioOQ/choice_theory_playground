@@ -1,7 +1,7 @@
 from imports import *
 from basic_functions import *
 
-def test_alpha(choice):
+def test_alpha(choice,verbose = False):
     # Extract universe from the choice function
     universe = set()
     for A in choice:
@@ -31,13 +31,13 @@ def test_alpha(choice):
             for x in subset1:
                 if x in choice_AUB:
                     if x not in choice_A:
-                        print(f"Alpha failed: x={x}, A={subset1}, AUB={set(subset1).union(subset2)}, "
-                              f"C(AUB)={choice_AUB}, C(A)={choice_A}")
+                        if verbose:
+                            print(f"Alpha failed: x={x}, A={subset1}, AUB={set(subset1).union(subset2)}, "
+                                  f"C(AUB)={choice_AUB}, C(A)={choice_A}")
                         return False
-    print("Alpha passed")
     return True
 
-def test_beta(choice):
+def test_beta(choice,vebose=False):
     universe = set()
     for A in choice:
         universe = universe.union(A)
@@ -68,13 +68,14 @@ def test_beta(choice):
                 if x in choice_AUB:
                     for y in choice_A:
                         if y not in choice_AUB:
-                            print(f"Beta failed: x,y={x},{y} A={subset1}, B={subset2}, "
+                            if verbose:
+                                print(f"Beta failed: x,y={x},{y} A={subset1}, B={subset2}, "
                                   f"C(A)={choice_A} C(AUB)={choice_AUB}")
                             return False
-    print("Beta passed")
+
     return True
     
-def test_gamma(choice):
+def test_gamma(choice, verbose=False):
     universe = set()
     for A in choice:
         universe = universe.union(A)
@@ -110,9 +111,9 @@ def test_gamma(choice):
             for x in intersection:
                 if choice_A == {x} and x in choice_B:
                     if x not in choice_AUB:
-                        print(f"Weak Gamma failed: x={x}, A={subset1}, B={subset2}, "
+                        if verbose:
+                            print(f"Weak Gamma failed: x={x}, A={subset1}, B={subset2}, "
                               f"C(A)={choice_A} C(B)={choice_B} C(AUB)={choice_AUB}")
                         return False
-    print("Weak Gamma passed")
     return True
 
