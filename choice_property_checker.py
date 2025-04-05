@@ -37,7 +37,7 @@ def test_alpha(choice,verbose = False):
                         return False
     return True
 
-def test_beta(choice,vebose=False):
+def test_beta(choice,verbose=False):
     universe = set()
     for A in choice:
         universe = universe.union(A)
