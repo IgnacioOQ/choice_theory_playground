@@ -54,3 +54,27 @@ def topological_sort(graph: Dict[int, Set[int]]) -> List[int]:
         raise ValueError("Cycle detected in the preference graph")
 
     return result[::-1]  # reverse to get most preferred first
+
+
+def build_choice_function_from_relation(
+    relation: Set[Tuple[int, int]],
+    universe: Set[int]
+) -> Dict[FrozenSet[int], Set[int]]:
+    """
+    Given a binary relation (a >= b), builds a choice function C(A)
+    such that C(A) = { a in A | a >= b for all b in A }.
+    The choice function is defined for all nonempty subsets of the universe.
+    """
+    # Build relation lookup: for each a, the set of b such that a >= b
+    geq = {a: set() for a in universe}
+    for a, b in relation:
+        geq[a].add(b)
+
+    choice_function = {}
+    for r in range(1, len(universe) + 1):
+        for subset in itertools.combinations(universe, r):
+            A = set(subset)
+            maximal = {a for a in A if all(b in geq.get(a, set()) for b in A)}
+            choice_function[frozenset(A)] = maximal
+
+    return choice_function
