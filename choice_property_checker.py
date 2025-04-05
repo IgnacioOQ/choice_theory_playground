@@ -4,8 +4,8 @@ from basic_functions import *
 def test_alpha(choice):
     # Extract universe from the choice function
     universe = set()
-    for a in choice:
-        universe.union(set(a))
+    for A in choice:
+        universe = universe.union(A)
 
     all_subsets = find_all_subsets_without_empty(universe)
     all_fsets = [frozenset(subset) for subset in all_subsets]
@@ -37,8 +37,12 @@ def test_alpha(choice):
     print("Alpha passed")
     return True
 
-def test_beta(choice, S):
-    all_subsets = find_all_subsets_without_empty(S)
+def test_beta(choice):
+    universe = set()
+    for A in choice:
+        universe = universe.union(A)
+        
+    all_subsets = find_all_subsets_without_empty(universe)
     all_fsets = [frozenset(subset) for subset in all_subsets]
 
     choice_cache = {fs: choice[fs] for fs in all_fsets}
@@ -71,7 +75,11 @@ def test_beta(choice, S):
     return True
     
 def test_gamma(choice, S):
-    all_subsets = find_all_subsets_without_empty(S)
+    universe = set()
+    for A in choice:
+        universe = universe.union(A)
+    
+    all_subsets = find_all_subsets_without_empty(universe)
     all_fsets = [frozenset(subset) for subset in all_subsets]
 
     choice_cache = {fs: choice[fs] for fs in all_fsets}
