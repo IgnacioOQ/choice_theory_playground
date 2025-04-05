@@ -74,7 +74,7 @@ def test_beta(choice):
     print("Beta passed")
     return True
     
-def test_gamma(choice, S):
+def test_gamma(choice):
     universe = set()
     for A in choice:
         universe = universe.union(A)
@@ -112,6 +112,7 @@ def test_gamma(choice, S):
                     if x not in choice_AUB:
                         print(f"Weak Gamma failed: x={x}, A={subset1}, B={subset2}, "
                               f"C(A)={choice_A} C(B)={choice_B} C(AUB)={choice_AUB}")
-                        return
+                        return False
     print("Weak Gamma passed")
+    return True
 
