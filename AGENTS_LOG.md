@@ -36,6 +36,17 @@
 - `02_relations_and_revealed_prefs_demo.ipynb`: Demonstrates relation properties and the bridge between choices and preferences.
 - Updated `README.md` and `AGENTS.md` to document the new folder.
 
+### Housekeeping Report (Reorganization Phase)
+**Date:** 2026-01-21
+**AI Assistant:** Antigravity
+**Summary:** Executed full housekeeping protocol following project reorganization.
+- **Actions:**
+    - Moved `HOUSEKEEPING.md` to `AI_AGENTS/`.
+    - Created comprehensive test suite in `tests/` covering all `src` modules.
+    - Verified all tests passed (14/14).
+    - Updated `AI_AGENTS/HOUSEKEEPING.md` with latest dependency graph and report.
+- **Status:** Stable.
+
 ---
 
 ### Housekeeping Report (Initial)
