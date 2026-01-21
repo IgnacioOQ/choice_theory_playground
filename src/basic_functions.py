@@ -1,4 +1,4 @@
-from imports import *
+from .imports import *
 
 def find_all_subsets(input_set):
     """

@@ -1,5 +1,6 @@
-from imports import *
-from basic_functions import *
+from .imports import *
+from .basic_functions import *
+from .choice_property_checker import test_alpha, test_beta, test_gamma
 
 def generate_random_int_set(n, max_value=None):
     """
