@@ -47,6 +47,14 @@
     - Updated `AI_AGENTS/HOUSEKEEPING.md` with latest dependency graph and report.
 - **Status:** Stable.
 
+### Optimization: Algorithmic Efficiency
+**Date:** 2026-01-21
+**AI Assistant:** Antigravity
+**Summary:** optimized `src/choice_axioms.py` (`test_alpha` and `test_beta`) to reduce complexity from $O(4^N)$ to $O(3^N)$.
+- **Method:** Changed iteration strategy from "all pairs of subsets" ($2^N \times 2^N$) to "Superset then Subsets" traversal.
+- **Verification:** Passed all 14 unit tests.
+- **Note:** `test_beta` now uses set intersection logic (`choice_A.intersection(choice_B)`) which acts as a vectorized check for expansion consistency.
+
 ---
 
 ### Housekeeping Report (Initial)
