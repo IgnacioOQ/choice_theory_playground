@@ -57,7 +57,7 @@ If you want to teach an agent a new language (like JAX) or technique:
 This project is a **Choice Theory Playground** — a computational tool for studying properties of choice functions and binary relations. It implements tests for choice-theoretic axioms (α, β, γ) and properties of relations (reflexivity, transitivity, symmetry, antisymmetry, acyclicity).
 
 ### Setup & Testing
-*   **Install Dependencies:** `pip install tqdm`
+*   **Install Dependencies:** `pip install -r requirements.txt`
 *   **Import the package:** `from src import *` or individual modules
 *   **Run Tests:** `python -c "from src import *; print('All imports successful!')"`
 
@@ -70,12 +70,12 @@ This project is a **Choice Theory Playground** — a computational tool for stud
     *   `HOUSEKEEPING.md`: Protocol for testing and maintenance.
 
 #### 2. Core Modules (`src/`)
-*   **`imports.py`**: Common imports (itertools, random, tqdm, typing, etc.).
-*   **`basic_functions.py`**: Core utility functions for subsets, orderings, and choice functions.
-*   **`relation_property_checker.py`**: Functions to check relation properties (reflexive, transitive, symmetric, antisymmetric, acyclic).
-*   **`choice_property_checker.py`**: Functions to test choice theory axioms (α, β, γ).
-*   **`bridging_choices_and_orderings.py`**: Functions to convert between choice functions and preference relations.
-*   **`testing_functions.py`**: Testing utilities for running batch property tests.
+*   **`common.py`**: Common imports (itertools, random, tqdm, typing, etc.).
+*   **`utils.py`**: Core utility functions for subsets, orderings, and choice functions.
+*   **`relation_properties.py`**: Functions to check relation properties (reflexive, transitive, symmetric, antisymmetric, acyclic).
+*   **`choice_axioms.py`**: Functions to test choice theory axioms (α, β, γ).
+*   **`revealed_preferences.py`**: Functions to convert between choice functions and preference relations.
+*   **`experiments.py`**: Testing utilities for running batch property tests.
 
 ### Key Files and Directories
 
@@ -84,25 +84,27 @@ This project is a **Choice Theory Playground** — a computational tool for stud
 choice_theory_playground/
 ├── AGENTS.md               # This file - project documentation for AI agents
 ├── AGENTS_LOG.md           # Log of agent interventions
+├── requirements.txt        # Project dependencies
+├── notebooks/              # Demonstration Notebooks
 ├── AI_AGENTS/              # Agent skill definitions
 │   ├── HOUSEKEEPING.md     # Housekeeping and testing protocol
 │   └── LINEARIZE_AGENT.md  # Vectorization agent instructions
 └── src/                    # Main Python package
     ├── __init__.py         # Package exports
-    ├── imports.py          # Common imports
-    ├── basic_functions.py  # Core utilities
-    ├── relation_property_checker.py
-    ├── choice_property_checker.py
-    ├── bridging_choices_and_orderings.py
-    └── testing_functions.py
+    ├── common.py           # Common imports
+    ├── utils.py            # Core utilities
+    ├── relation_properties.py
+    ├── choice_axioms.py
+    ├── revealed_preferences.py
+    └── experiments.py
 ```
 
 #### File Dependencies & Logic
-- `basic_functions.py` depends on `imports.py`
-- `relation_property_checker.py` depends on `imports.py`, `basic_functions.py`
-- `choice_property_checker.py` depends on `imports.py`, `basic_functions.py`
-- `bridging_choices_and_orderings.py` depends on `imports.py`
-- `testing_functions.py` depends on `imports.py`, `basic_functions.py`, `choice_property_checker.py`
+- `utils.py` depends on `common.py`
+- `relation_properties.py` depends on `common.py`, `utils.py`
+- `choice_axioms.py` depends on `common.py`, `utils.py`
+- `revealed_preferences.py` depends on `common.py`
+- `experiments.py` depends on `common.py`, `utils.py`, `choice_axioms.py`
 
 ### Choice Theory Concepts
 

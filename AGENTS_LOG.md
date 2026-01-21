@@ -16,6 +16,26 @@
 - **Created `src/__init__.py`:** Package with all exports for easy importing
 - **Updated `AGENTS.md`:** Reflects new directory structure and project purpose (choice theory computational tool)
 
+### Codebase Refactoring: Renaming for Clarity
+**Date:** 2026-01-21
+**AI Assistant:** Antigravity
+**Summary:** Renamed source files in `src/` for better logical clarity.
+- `basic_functions.py` → `utils.py`
+- `choice_property_checker.py` → `choice_axioms.py`
+- `relation_property_checker.py` → `relation_properties.py`
+- `bridging_choices_and_orderings.py` → `revealed_preferences.py`
+- `testing_functions.py` → `experiments.py`
+- `imports.py` → `common.py`
+- Updated all imports and documentation (`AGENTS.md`, `README.md`, `src/__init__.py`) to match.
+
+### Documentation: Added Demonstration Notebooks
+**Date:** 2026-01-21
+**AI Assistant:** Antigravity
+**Summary:** Added a `notebooks/` folder with two demonstration notebooks.
+- `01_choice_axioms_demo.ipynb`: Shows how to generate random choice functions and test for Alpha/Beta/Gamma properties.
+- `02_relations_and_revealed_prefs_demo.ipynb`: Demonstrates relation properties and the bridge between choices and preferences.
+- Updated `README.md` and `AGENTS.md` to document the new folder.
+
 ---
 
 ### Housekeeping Report (Initial)

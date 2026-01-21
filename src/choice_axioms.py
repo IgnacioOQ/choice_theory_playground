@@ -1,5 +1,5 @@
-from .imports import *
-from .basic_functions import *
+from .common import *
+from .utils import *
 
 def test_alpha(choice,verbose = False):
     # Extract universe from the choice function
